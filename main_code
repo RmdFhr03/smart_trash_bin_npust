@@ -85,3 +85,56 @@ void loop() {
   lcd.print(distance2);
 
   delay(1000);
+
+// Move servo for automatic door
+  if (distance3 <= 10) {
+    myServo1.write(90);
+    delay(1000);
+    lcd.clear();
+    lcd.setCursor(2, 0);
+    lcd.print("Enter Trash !");
+    delay(1000);
+    lcd.setCursor(3, 1);
+    lcd.print("Thank You !");
+    delay(1000);
+  } else {
+    myServo1.write(0);
+    delay(1000);
+  }
+
+  if (inductiveSensorValue == HIGH) {
+    Serial.println("Metal Detected!");
+    myServo2.write(180);
+    delay(2000);  // Jeda 2 detik
+    myServo2.write(0);
+    delay(1000);  // Jeda 1 detik
+  } else if (capacitiveSensorValue == HIGH) {
+    Serial.println("Non-Metal Detected!");
+    myServo2.write(0);
+    delay(2000);  // Jeda 2 detik
+    myServo2.write(180);
+    delay(1000);  // Jeda 1 detik
+  }
+
+  if (distance1 <= 5 && distance2 > 5) {
+    lcd.clear();
+    lcd.setCursor(5, 0);
+    lcd.print("Status!");
+    lcd.setCursor(3, 1);
+    lcd.print("Metal Full");
+    delay(2000);
+  } else if (distance2 <= 5 && distance1 > 5) {
+    lcd.clear();
+    lcd.setCursor(5, 0);
+    lcd.print("Status!");
+    lcd.setCursor(2, 1);
+    lcd.print("NonMetal Full");
+    delay(2000);
+  } else if (distance1 <= 5 && distance2 <= 5) {
+    lcd.clear();
+    lcd.setCursor(5, 0);
+    lcd.print("Status!");
+    lcd.setCursor(5, 1);
+    lcd.print("F U L L");
+    delay(2000);
+  }
