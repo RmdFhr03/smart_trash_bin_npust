@@ -39,3 +39,49 @@ void setup() {
   lcd.init();
   lcd.backlight();
 }
+
+void loop() {
+
+  //int irSensorValue = digitalRead(irSensorPin);
+  int inductiveSensorValue = digitalRead(inductivePin);
+  int capacitiveSensorValue = digitalRead(capacitivePin);
+
+  long distance1 = ultrasonic1.read();
+  long distance2 = ultrasonic2.read();
+  long distance3 = ultrasonic3.read();
+
+  Serial.print("V.Metal      :");
+  Serial.print(distance1);
+  Serial.println(" cm");
+
+  Serial.print("V.Non-Metal  :");
+  Serial.print(distance2);
+  Serial.println(" cm");
+
+  Serial.print("Jarak: ");
+  Serial.print(distance3);
+  Serial.println(" cm");
+
+  delay(1000);
+  String sendToESP ="";
+  sendToESP += distance1;
+  sendToESP += ";";
+  sendToESP += distance2;
+  ss.println(sendToESP);
+  delay(1000);
+
+  lcd.clear();
+  lcd.setCursor(1, 0);
+  lcd.print("Smart Trash Bin");
+
+  delay(1000);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("V.Metal    :");
+  lcd.print(distance1);
+  lcd.setCursor(0, 1);
+  lcd.print("V.NonMetal :");
+  lcd.print(distance2);
+
+  delay(1000);
