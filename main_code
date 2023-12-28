@@ -1,0 +1,27 @@
+
+
+#include <SoftwareSerial.h>
+#include <Servo.h>
+#include <Ultrasonic.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+SoftwareSerial ss(10,13);
+
+// LCD I2C
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Motor Servo
+Servo myServo1; // Automatic Door
+Servo myServo2; // Classification Type of Waste
+
+// Ultrasonic
+Ultrasonic ultrasonic1(2, 3); // Metal Volume
+Ultrasonic ultrasonic2(4, 5); // Non-Metal Volume
+Ultrasonic ultrasonic3(7, 6); // Distance Person for Automatic Door
+
+// Proximity Inductive
+const int inductivePin = 11; // Sensor LJ12A3-4-Z/BY PNP NO Inductive
+
+// Proximity Capacitive
+const int capacitivePin = 12; // LJC18A3-B-Z/BY PNP NO Capacitive
